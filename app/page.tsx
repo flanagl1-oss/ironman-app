@@ -263,16 +263,16 @@ function addSession(dayDate: string) {
     prev.map((day) => {
       if (day.date !== dayDate) return day;
 
-      const newSession: Session = {
+      const newSession = {
         title: "New Session",
-        discipline: "Run",
+        discipline: "Run" as const,
         minutes: 30,
         distance: 0,
-        unit: "km", // 👈 IMPORTANT: match your type (unit not distanceUnit)
+        unit: "km" as const,
         actualKm: 0,
-        effort: "",
-        notes: "",
         completed: false,
+        notes: "",
+        effort: "",
       };
 
       return {
