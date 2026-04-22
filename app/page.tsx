@@ -308,12 +308,12 @@ function getColor(discipline: string) {
   }
 }
 
-function MiniBar({ label, value, max, color }: { label: string; value: number; max: number; color: string }) {
+function MiniBar({ label, value, max, color, valueLabel }: { label: string; value: number; max: number; color: string; valueLabel?: string }) {
   return (
     <div style={{ marginBottom: 10 }}>
       <div style={{ display: "flex", justifyContent: "space-between", fontSize: 13, marginBottom: 4 }}>
         <span>{label}</span>
-        <span>{value}</span>
+        <span>{valueLabel ?? value}</span>
       </div>
       <div style={{ height: 10, background: "#e5e7eb", borderRadius: 999 }}>
         <div style={{ width: `${max ? (value / max) * 100 : 0}%`, height: 10, background: color, borderRadius: 999 }} />
@@ -351,25 +351,48 @@ export default function Page() {
   const weeklyStats = useMemo(() => {
     return weeks.map(({ week, days }) => {
       const sessions = days.flatMap((d) => d.sessions);
+      const completedSessions = sessions.filter((s) => s.completed);
       const swimMin = sessions.filter((s) => normalizeDiscipline(s.discipline) === "Swim").reduce((a, b) => a + b.minutes, 0);
       const bikeMin = sessions.filter((s) => normalizeDiscipline(s.discipline) === "Bike").reduce((a, b) => a + b.minutes, 0);
       const runMin = sessions.filter((s) => normalizeDiscipline(s.discipline) === "Run").reduce((a, b) => a + b.minutes, 0);
       const swimKm = sessions.filter((s) => normalizeDiscipline(s.discipline) === "Swim").reduce((a, b) => a + toKm(b), 0);
       const bikeKm = sessions.filter((s) => normalizeDiscipline(s.discipline) === "Bike").reduce((a, b) => a + toKm(b), 0);
       const runKm = sessions.filter((s) => normalizeDiscipline(s.discipline) === "Run").reduce((a, b) => a + toKm(b), 0);
+      const completedSwimMin = completedSessions.filter((s) => normalizeDiscipline(s.discipline) === "Swim").reduce((a, b) => a + b.minutes, 0);
+      const completedBikeMin = completedSessions.filter((s) => normalizeDiscipline(s.discipline) === "Bike").reduce((a, b) => a + b.minutes, 0);
+      const completedRunMin = completedSessions.filter((s) => normalizeDiscipline(s.discipline) === "Run").reduce((a, b) => a + b.minutes, 0);
+      const completedSwimKm = completedSessions.filter((s) => normalizeDiscipline(s.discipline) === "Swim").reduce((a, b) => a + toKm(b), 0);
+      const completedBikeKm = completedSessions.filter((s) => normalizeDiscipline(s.discipline) === "Bike").reduce((a, b) => a + toKm(b), 0);
+      const completedRunKm = completedSessions.filter((s) => normalizeDiscipline(s.discipline) === "Run").reduce((a, b) => a + toKm(b), 0);
       const done = sessions.filter((s) => s.completed && normalizeDiscipline(s.discipline) !== "Rest").length;
       const planned = sessions.filter((s) => normalizeDiscipline(s.discipline) !== "Rest").length;
-      return { week, swimMin, bikeMin, runMin, swimKm, bikeKm, runKm, done, planned };
+      return {
+        week,
+        swimMin,
+        bikeMin,
+        runMin,
+        swimKm,
+        bikeKm,
+        runKm,
+        completedSwimMin,
+        completedBikeMin,
+        completedRunMin,
+        completedSwimKm,
+        completedBikeKm,
+        completedRunKm,
+        done,
+        planned,
+      };
     });
   }, [weeks]);
 
   const maxima = useMemo(() => ({
-    swimMin: Math.max(...weeklyStats.map((w) => w.swimMin), 1),
-    bikeMin: Math.max(...weeklyStats.map((w) => w.bikeMin), 1),
-    runMin: Math.max(...weeklyStats.map((w) => w.runMin), 1),
-    swimKm: Math.max(...weeklyStats.map((w) => w.swimKm), 1),
-    bikeKm: Math.max(...weeklyStats.map((w) => w.bikeKm), 1),
-    runKm: Math.max(...weeklyStats.map((w) => w.runKm), 1),
+    swimMin: Math.max(...weeklyStats.map((w) => w.completedSwimMin), 1),
+    bikeMin: Math.max(...weeklyStats.map((w) => w.completedBikeMin), 1),
+    runMin: Math.max(...weeklyStats.map((w) => w.completedRunMin), 1),
+    swimKm: Math.max(...weeklyStats.map((w) => w.completedSwimKm), 1),
+    bikeKm: Math.max(...weeklyStats.map((w) => w.completedBikeKm), 1),
+    runKm: Math.max(...weeklyStats.map((w) => w.completedRunKm), 1),
   }), [weeklyStats]);
 
   function updateSession(dayDate: string, sessionIndex: number, patch: Partial<PlannedSession>) {
@@ -559,9 +582,9 @@ export default function Page() {
                 {weeklyStats.map((w) => (
                   <div key={w.week} style={{ border: "1px solid #e5e7eb", borderRadius: 14, padding: 10, marginBottom: 10 }}>
                     <div style={{ fontWeight: 600, marginBottom: 8 }}>{w.week}</div>
-                    <MiniBar label="Swim min" value={w.swimMin} max={maxima.swimMin} color="#3b82f6" />
-                    <MiniBar label="Bike min" value={w.bikeMin} max={maxima.bikeMin} color="#22c55e" />
-                    <MiniBar label="Run min" value={w.runMin} max={maxima.runMin} color="#ef4444" />
+                    <MiniBar label="Swim min" value={w.completedSwimMin} valueLabel={w.completedSwimMin ? String(w.completedSwimMin) : ""} max={maxima.swimMin} color="#3b82f6" />
+                    <MiniBar label="Bike min" value={w.completedBikeMin} valueLabel={w.completedBikeMin ? String(w.completedBikeMin) : ""} max={maxima.bikeMin} color="#22c55e" />
+                    <MiniBar label="Run min" value={w.completedRunMin} valueLabel={w.completedRunMin ? String(w.completedRunMin) : ""} max={maxima.runMin} color="#ef4444" />
                   </div>
                 ))}
               </div>
@@ -571,9 +594,9 @@ export default function Page() {
                 {weeklyStats.map((w) => (
                   <div key={w.week} style={{ border: "1px solid #e5e7eb", borderRadius: 14, padding: 10, marginBottom: 10 }}>
                     <div style={{ fontWeight: 600, marginBottom: 8 }}>{w.week}</div>
-                    <MiniBar label="Swim km" value={Number(w.swimKm.toFixed(1))} max={maxima.swimKm} color="#3b82f6" />
-                    <MiniBar label="Bike km" value={Number(w.bikeKm.toFixed(1))} max={maxima.bikeKm} color="#22c55e" />
-                    <MiniBar label="Run km" value={Number(w.runKm.toFixed(1))} max={maxima.runKm} color="#ef4444" />
+                    <MiniBar label="Swim km" value={Number(w.completedSwimKm.toFixed(1))} valueLabel={w.completedSwimKm ? w.completedSwimKm.toFixed(1) : ""} max={maxima.swimKm} color="#3b82f6" />
+                    <MiniBar label="Bike km" value={Number(w.completedBikeKm.toFixed(1))} valueLabel={w.completedBikeKm ? w.completedBikeKm.toFixed(1) : ""} max={maxima.bikeKm} color="#22c55e" />
+                    <MiniBar label="Run km" value={Number(w.completedRunKm.toFixed(1))} valueLabel={w.completedRunKm ? w.completedRunKm.toFixed(1) : ""} max={maxima.runKm} color="#ef4444" />
                   </div>
                 ))}
               </div>
