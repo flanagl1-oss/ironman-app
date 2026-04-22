@@ -258,13 +258,30 @@ export default function Page() {
     }));
   }
 
-  function addSession(dayDate: string) {
-    setPlan((prev) => prev.map((day) => {
+function addSession(dayDate: string) {
+  setPlan((prev) =>
+    prev.map((day) => {
       if (day.date !== dayDate) return day;
-      const sessions = [...day.sessions, { title: "New Session", discipline: "Run", minutes: 30, distance: 0, distanceUnit: "km", effort: "", notes: "", completed: false, matchedActivityId: "" }];
-      return { ...day, sessions, status: buildStatus({ ...day, sessions }) };
-    }));
-  }
+
+      const newSession: Session = {
+        title: "New Session",
+        discipline: "Run",
+        minutes: 30,
+        distance: 0,
+        unit: "km", // 👈 IMPORTANT: match your type (unit not distanceUnit)
+        actualKm: 0,
+        effort: "",
+        notes: "",
+        completed: false,
+      };
+
+      return {
+        ...day,
+        sessions: [...day.sessions, newSession],
+      };
+    })
+  );
+}
 
   function autoMatchActivities() {
     setPlan((prev) => prev.map((day) => {
