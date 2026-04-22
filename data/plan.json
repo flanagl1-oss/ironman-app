@@ -1,0 +1,1167 @@
+[
+  {
+    "date": "2026-04-20",
+    "week": "Week 1",
+    "day": "Monday",
+    "sessions": [
+      {
+        "title": "Recovery Day",
+        "discipline": "Rest",
+        "minutes": 0,
+        "effort": "Rest",
+        "notes": "Take it easy; optional massage, nap, and recovery habits.",
+        "completed": false,
+        "matchedActivityId": ""
+      }
+    ]
+  },
+  {
+    "date": "2026-04-21",
+    "week": "Week 1",
+    "day": "Tuesday",
+    "sessions": [
+      {
+        "title": "Swim - Alternating Pull & Build (2000 yds)",
+        "discipline": "Swim",
+        "minutes": 40,
+        "effort": "56-78% HR / 80-98% base pace",
+        "notes": "WU 500 easy; 3x400 alternating pull/build; CD 300.",
+        "completed": false,
+        "matchedActivityId": ""
+      },
+      {
+        "title": "Run - Easy run 4 min run / 1 min walk",
+        "discipline": "Run",
+        "minutes": 30,
+        "effort": "65-85% HR / 63-84% pace",
+        "notes": "Repeat 4 min run / 1 min walk for full session.",
+        "completed": false,
+        "matchedActivityId": ""
+      }
+    ]
+  },
+  {
+    "date": "2026-04-22",
+    "week": "Week 1",
+    "day": "Wednesday",
+    "sessions": [
+      {
+        "title": "Swim - 70.3 Swim Test Set (2800 yds)",
+        "discipline": "Swim",
+        "minutes": 56,
+        "effort": "Test",
+        "notes": "WU 200 build + drills; test set; easy cool down.",
+        "completed": false,
+        "matchedActivityId": ""
+      },
+      {
+        "title": "Bike - Threshold Test",
+        "discipline": "Bike",
+        "minutes": 90,
+        "effort": "Threshold test",
+        "notes": "30 min threshold test after warm-up; use average HR of last 20 min if setting zones.",
+        "completed": false,
+        "matchedActivityId": ""
+      }
+    ]
+  },
+  {
+    "date": "2026-04-23",
+    "week": "Week 1",
+    "day": "Thursday",
+    "sessions": [
+      {
+        "title": "Run - 30 min time trial test",
+        "discipline": "Run",
+        "minutes": 60,
+        "effort": "Test",
+        "notes": "WU with pickups, then 30 min TT on flat route/track.",
+        "completed": false,
+        "matchedActivityId": ""
+      }
+    ]
+  },
+  {
+    "date": "2026-04-24",
+    "week": "Week 1",
+    "day": "Friday",
+    "sessions": [
+      {
+        "title": "Swim - Easy mostly pulling",
+        "discipline": "Swim",
+        "minutes": 30,
+        "effort": "Easy",
+        "notes": "Recovery and light strength/aerobic focus.",
+        "completed": false,
+        "matchedActivityId": ""
+      },
+      {
+        "title": "Bike - Easy to moderate cadence variance",
+        "discipline": "Bike",
+        "minutes": 35,
+        "effort": "50-65% HR / 30-70% power",
+        "notes": "Z2 with cadence blocks.",
+        "completed": false,
+        "matchedActivityId": ""
+      }
+    ]
+  },
+  {
+    "date": "2026-04-25",
+    "week": "Week 1",
+    "day": "Saturday",
+    "sessions": [
+      {
+        "title": "Bike - Easy ride",
+        "discipline": "Bike",
+        "minutes": 150,
+        "effort": "50-65% HR / 30-70% power",
+        "notes": "Aerobic ride; just bank time.",
+        "completed": false,
+        "matchedActivityId": ""
+      },
+      {
+        "title": "Run - Transition Run Easy",
+        "discipline": "Run",
+        "minutes": 15,
+        "effort": "65-85% HR / 63-90% pace",
+        "notes": "Easy transition run off the bike.",
+        "completed": false,
+        "matchedActivityId": ""
+      }
+    ]
+  },
+  {
+    "date": "2026-04-26",
+    "week": "Week 1",
+    "day": "Sunday",
+    "sessions": [
+      {
+        "title": "Run - Endurance run 5/1",
+        "discipline": "Run",
+        "minutes": 60,
+        "effort": "65-85% HR / 63-78% pace",
+        "notes": "Endurance run using 5 min run / 1 min walk.",
+        "completed": false,
+        "matchedActivityId": ""
+      },
+      {
+        "title": "Bike - Easy ride",
+        "discipline": "Bike",
+        "minutes": 30,
+        "effort": "50-65% HR / 30-70% power",
+        "notes": "Easy aerobic maintenance ride.",
+        "completed": false,
+        "matchedActivityId": ""
+      }
+    ]
+  },
+  {
+    "date": "2026-04-27",
+    "week": "Week 2",
+    "day": "Monday",
+    "sessions": [
+      {
+        "title": "Swim session",
+        "discipline": "Swim",
+        "minutes": 45,
+        "effort": "Planned",
+        "notes": "Replace with exact master-plan detail from your sheet/PDF as needed.",
+        "completed": false,
+        "matchedActivityId": ""
+      }
+    ]
+  },
+  {
+    "date": "2026-04-28",
+    "week": "Week 2",
+    "day": "Tuesday",
+    "sessions": [
+      {
+        "title": "Bike session",
+        "discipline": "Bike",
+        "minutes": 60,
+        "effort": "Planned",
+        "notes": "Replace with exact master-plan detail from your sheet/PDF as needed.",
+        "completed": false,
+        "matchedActivityId": ""
+      }
+    ]
+  },
+  {
+    "date": "2026-04-29",
+    "week": "Week 2",
+    "day": "Wednesday",
+    "sessions": [
+      {
+        "title": "Run session",
+        "discipline": "Run",
+        "minutes": 45,
+        "effort": "Planned",
+        "notes": "Replace with exact master-plan detail from your sheet/PDF as needed.",
+        "completed": false,
+        "matchedActivityId": ""
+      }
+    ]
+  },
+  {
+    "date": "2026-04-30",
+    "week": "Week 2",
+    "day": "Thursday",
+    "sessions": [
+      {
+        "title": "Bike session",
+        "discipline": "Bike",
+        "minutes": 60,
+        "effort": "Planned",
+        "notes": "Replace with exact master-plan detail from your sheet/PDF as needed.",
+        "completed": false,
+        "matchedActivityId": ""
+      }
+    ]
+  },
+  {
+    "date": "2026-05-01",
+    "week": "Week 2",
+    "day": "Friday",
+    "sessions": [
+      {
+        "title": "Rest Day",
+        "discipline": "Rest",
+        "minutes": 0,
+        "effort": "Rest",
+        "notes": "Recovery / taper as appropriate. Edit details as needed.",
+        "completed": false,
+        "matchedActivityId": ""
+      }
+    ]
+  },
+  {
+    "date": "2026-05-02",
+    "week": "Week 2",
+    "day": "Saturday",
+    "sessions": [
+      {
+        "title": "Bike session",
+        "discipline": "Bike",
+        "minutes": 120,
+        "effort": "Planned",
+        "notes": "Replace with exact master-plan detail from your sheet/PDF as needed.",
+        "completed": false,
+        "matchedActivityId": ""
+      }
+    ]
+  },
+  {
+    "date": "2026-05-03",
+    "week": "Week 2",
+    "day": "Sunday",
+    "sessions": [
+      {
+        "title": "Run session",
+        "discipline": "Run",
+        "minutes": 60,
+        "effort": "Planned",
+        "notes": "Replace with exact master-plan detail from your sheet/PDF as needed.",
+        "completed": false,
+        "matchedActivityId": ""
+      }
+    ]
+  },
+  {
+    "date": "2026-05-04",
+    "week": "Week 3",
+    "day": "Monday",
+    "sessions": [
+      {
+        "title": "Swim session",
+        "discipline": "Swim",
+        "minutes": 45,
+        "effort": "Planned",
+        "notes": "Replace with exact master-plan detail from your sheet/PDF as needed.",
+        "completed": false,
+        "matchedActivityId": ""
+      }
+    ]
+  },
+  {
+    "date": "2026-05-05",
+    "week": "Week 3",
+    "day": "Tuesday",
+    "sessions": [
+      {
+        "title": "Bike session",
+        "discipline": "Bike",
+        "minutes": 60,
+        "effort": "Planned",
+        "notes": "Replace with exact master-plan detail from your sheet/PDF as needed.",
+        "completed": false,
+        "matchedActivityId": ""
+      }
+    ]
+  },
+  {
+    "date": "2026-05-06",
+    "week": "Week 3",
+    "day": "Wednesday",
+    "sessions": [
+      {
+        "title": "Run session",
+        "discipline": "Run",
+        "minutes": 45,
+        "effort": "Planned",
+        "notes": "Replace with exact master-plan detail from your sheet/PDF as needed.",
+        "completed": false,
+        "matchedActivityId": ""
+      }
+    ]
+  },
+  {
+    "date": "2026-05-07",
+    "week": "Week 3",
+    "day": "Thursday",
+    "sessions": [
+      {
+        "title": "Bike session",
+        "discipline": "Bike",
+        "minutes": 60,
+        "effort": "Planned",
+        "notes": "Replace with exact master-plan detail from your sheet/PDF as needed.",
+        "completed": false,
+        "matchedActivityId": ""
+      }
+    ]
+  },
+  {
+    "date": "2026-05-08",
+    "week": "Week 3",
+    "day": "Friday",
+    "sessions": [
+      {
+        "title": "Rest Day",
+        "discipline": "Rest",
+        "minutes": 0,
+        "effort": "Rest",
+        "notes": "Recovery / taper as appropriate. Edit details as needed.",
+        "completed": false,
+        "matchedActivityId": ""
+      }
+    ]
+  },
+  {
+    "date": "2026-05-09",
+    "week": "Week 3",
+    "day": "Saturday",
+    "sessions": [
+      {
+        "title": "Bike session",
+        "discipline": "Bike",
+        "minutes": 120,
+        "effort": "Planned",
+        "notes": "Replace with exact master-plan detail from your sheet/PDF as needed.",
+        "completed": false,
+        "matchedActivityId": ""
+      }
+    ]
+  },
+  {
+    "date": "2026-05-10",
+    "week": "Week 3",
+    "day": "Sunday",
+    "sessions": [
+      {
+        "title": "Run session",
+        "discipline": "Run",
+        "minutes": 60,
+        "effort": "Planned",
+        "notes": "Replace with exact master-plan detail from your sheet/PDF as needed.",
+        "completed": false,
+        "matchedActivityId": ""
+      }
+    ]
+  },
+  {
+    "date": "2026-05-11",
+    "week": "Week 4",
+    "day": "Monday",
+    "sessions": [
+      {
+        "title": "Swim session",
+        "discipline": "Swim",
+        "minutes": 45,
+        "effort": "Planned",
+        "notes": "Replace with exact master-plan detail from your sheet/PDF as needed.",
+        "completed": false,
+        "matchedActivityId": ""
+      }
+    ]
+  },
+  {
+    "date": "2026-05-12",
+    "week": "Week 4",
+    "day": "Tuesday",
+    "sessions": [
+      {
+        "title": "Bike session",
+        "discipline": "Bike",
+        "minutes": 60,
+        "effort": "Planned",
+        "notes": "Replace with exact master-plan detail from your sheet/PDF as needed.",
+        "completed": false,
+        "matchedActivityId": ""
+      }
+    ]
+  },
+  {
+    "date": "2026-05-13",
+    "week": "Week 4",
+    "day": "Wednesday",
+    "sessions": [
+      {
+        "title": "Run session",
+        "discipline": "Run",
+        "minutes": 45,
+        "effort": "Planned",
+        "notes": "Replace with exact master-plan detail from your sheet/PDF as needed.",
+        "completed": false,
+        "matchedActivityId": ""
+      }
+    ]
+  },
+  {
+    "date": "2026-05-14",
+    "week": "Week 4",
+    "day": "Thursday",
+    "sessions": [
+      {
+        "title": "Bike session",
+        "discipline": "Bike",
+        "minutes": 60,
+        "effort": "Planned",
+        "notes": "Replace with exact master-plan detail from your sheet/PDF as needed.",
+        "completed": false,
+        "matchedActivityId": ""
+      }
+    ]
+  },
+  {
+    "date": "2026-05-15",
+    "week": "Week 4",
+    "day": "Friday",
+    "sessions": [
+      {
+        "title": "Rest Day",
+        "discipline": "Rest",
+        "minutes": 0,
+        "effort": "Rest",
+        "notes": "Recovery / taper as appropriate. Edit details as needed.",
+        "completed": false,
+        "matchedActivityId": ""
+      }
+    ]
+  },
+  {
+    "date": "2026-05-16",
+    "week": "Week 4",
+    "day": "Saturday",
+    "sessions": [
+      {
+        "title": "Bike session",
+        "discipline": "Bike",
+        "minutes": 120,
+        "effort": "Planned",
+        "notes": "Replace with exact master-plan detail from your sheet/PDF as needed.",
+        "completed": false,
+        "matchedActivityId": ""
+      }
+    ]
+  },
+  {
+    "date": "2026-05-17",
+    "week": "Week 4",
+    "day": "Sunday",
+    "sessions": [
+      {
+        "title": "Run session",
+        "discipline": "Run",
+        "minutes": 60,
+        "effort": "Planned",
+        "notes": "Replace with exact master-plan detail from your sheet/PDF as needed.",
+        "completed": false,
+        "matchedActivityId": ""
+      }
+    ]
+  },
+  {
+    "date": "2026-05-18",
+    "week": "Week 5",
+    "day": "Monday",
+    "sessions": [
+      {
+        "title": "Swim session",
+        "discipline": "Swim",
+        "minutes": 45,
+        "effort": "Planned",
+        "notes": "Replace with exact master-plan detail from your sheet/PDF as needed.",
+        "completed": false,
+        "matchedActivityId": ""
+      }
+    ]
+  },
+  {
+    "date": "2026-05-19",
+    "week": "Week 5",
+    "day": "Tuesday",
+    "sessions": [
+      {
+        "title": "Bike session",
+        "discipline": "Bike",
+        "minutes": 60,
+        "effort": "Planned",
+        "notes": "Replace with exact master-plan detail from your sheet/PDF as needed.",
+        "completed": false,
+        "matchedActivityId": ""
+      }
+    ]
+  },
+  {
+    "date": "2026-05-20",
+    "week": "Week 5",
+    "day": "Wednesday",
+    "sessions": [
+      {
+        "title": "Run session",
+        "discipline": "Run",
+        "minutes": 45,
+        "effort": "Planned",
+        "notes": "Replace with exact master-plan detail from your sheet/PDF as needed.",
+        "completed": false,
+        "matchedActivityId": ""
+      }
+    ]
+  },
+  {
+    "date": "2026-05-21",
+    "week": "Week 5",
+    "day": "Thursday",
+    "sessions": [
+      {
+        "title": "Bike session",
+        "discipline": "Bike",
+        "minutes": 60,
+        "effort": "Planned",
+        "notes": "Replace with exact master-plan detail from your sheet/PDF as needed.",
+        "completed": false,
+        "matchedActivityId": ""
+      }
+    ]
+  },
+  {
+    "date": "2026-05-22",
+    "week": "Week 5",
+    "day": "Friday",
+    "sessions": [
+      {
+        "title": "Rest Day",
+        "discipline": "Rest",
+        "minutes": 0,
+        "effort": "Rest",
+        "notes": "Recovery / taper as appropriate. Edit details as needed.",
+        "completed": false,
+        "matchedActivityId": ""
+      }
+    ]
+  },
+  {
+    "date": "2026-05-23",
+    "week": "Week 5",
+    "day": "Saturday",
+    "sessions": [
+      {
+        "title": "Bike session",
+        "discipline": "Bike",
+        "minutes": 120,
+        "effort": "Planned",
+        "notes": "Replace with exact master-plan detail from your sheet/PDF as needed.",
+        "completed": false,
+        "matchedActivityId": ""
+      }
+    ]
+  },
+  {
+    "date": "2026-05-24",
+    "week": "Week 5",
+    "day": "Sunday",
+    "sessions": [
+      {
+        "title": "Run session",
+        "discipline": "Run",
+        "minutes": 60,
+        "effort": "Planned",
+        "notes": "Replace with exact master-plan detail from your sheet/PDF as needed.",
+        "completed": false,
+        "matchedActivityId": ""
+      }
+    ]
+  },
+  {
+    "date": "2026-05-25",
+    "week": "Week 6",
+    "day": "Monday",
+    "sessions": [
+      {
+        "title": "Swim session",
+        "discipline": "Swim",
+        "minutes": 45,
+        "effort": "Planned",
+        "notes": "Replace with exact master-plan detail from your sheet/PDF as needed.",
+        "completed": false,
+        "matchedActivityId": ""
+      }
+    ]
+  },
+  {
+    "date": "2026-05-26",
+    "week": "Week 6",
+    "day": "Tuesday",
+    "sessions": [
+      {
+        "title": "Bike session",
+        "discipline": "Bike",
+        "minutes": 60,
+        "effort": "Planned",
+        "notes": "Replace with exact master-plan detail from your sheet/PDF as needed.",
+        "completed": false,
+        "matchedActivityId": ""
+      }
+    ]
+  },
+  {
+    "date": "2026-05-27",
+    "week": "Week 6",
+    "day": "Wednesday",
+    "sessions": [
+      {
+        "title": "Run session",
+        "discipline": "Run",
+        "minutes": 45,
+        "effort": "Planned",
+        "notes": "Replace with exact master-plan detail from your sheet/PDF as needed.",
+        "completed": false,
+        "matchedActivityId": ""
+      }
+    ]
+  },
+  {
+    "date": "2026-05-28",
+    "week": "Week 6",
+    "day": "Thursday",
+    "sessions": [
+      {
+        "title": "Bike session",
+        "discipline": "Bike",
+        "minutes": 60,
+        "effort": "Planned",
+        "notes": "Replace with exact master-plan detail from your sheet/PDF as needed.",
+        "completed": false,
+        "matchedActivityId": ""
+      }
+    ]
+  },
+  {
+    "date": "2026-05-29",
+    "week": "Week 6",
+    "day": "Friday",
+    "sessions": [
+      {
+        "title": "Rest Day",
+        "discipline": "Rest",
+        "minutes": 0,
+        "effort": "Rest",
+        "notes": "Recovery / taper as appropriate. Edit details as needed.",
+        "completed": false,
+        "matchedActivityId": ""
+      }
+    ]
+  },
+  {
+    "date": "2026-05-30",
+    "week": "Week 6",
+    "day": "Saturday",
+    "sessions": [
+      {
+        "title": "Bike session",
+        "discipline": "Bike",
+        "minutes": 120,
+        "effort": "Planned",
+        "notes": "Replace with exact master-plan detail from your sheet/PDF as needed.",
+        "completed": false,
+        "matchedActivityId": ""
+      }
+    ]
+  },
+  {
+    "date": "2026-05-31",
+    "week": "Week 6",
+    "day": "Sunday",
+    "sessions": [
+      {
+        "title": "Run session",
+        "discipline": "Run",
+        "minutes": 60,
+        "effort": "Planned",
+        "notes": "Replace with exact master-plan detail from your sheet/PDF as needed.",
+        "completed": false,
+        "matchedActivityId": ""
+      }
+    ]
+  },
+  {
+    "date": "2026-06-01",
+    "week": "Week 7",
+    "day": "Monday",
+    "sessions": [
+      {
+        "title": "Swim session",
+        "discipline": "Swim",
+        "minutes": 45,
+        "effort": "Planned",
+        "notes": "Replace with exact master-plan detail from your sheet/PDF as needed.",
+        "completed": false,
+        "matchedActivityId": ""
+      }
+    ]
+  },
+  {
+    "date": "2026-06-02",
+    "week": "Week 7",
+    "day": "Tuesday",
+    "sessions": [
+      {
+        "title": "Bike session",
+        "discipline": "Bike",
+        "minutes": 60,
+        "effort": "Planned",
+        "notes": "Replace with exact master-plan detail from your sheet/PDF as needed.",
+        "completed": false,
+        "matchedActivityId": ""
+      }
+    ]
+  },
+  {
+    "date": "2026-06-03",
+    "week": "Week 7",
+    "day": "Wednesday",
+    "sessions": [
+      {
+        "title": "Run session",
+        "discipline": "Run",
+        "minutes": 45,
+        "effort": "Planned",
+        "notes": "Replace with exact master-plan detail from your sheet/PDF as needed.",
+        "completed": false,
+        "matchedActivityId": ""
+      }
+    ]
+  },
+  {
+    "date": "2026-06-04",
+    "week": "Week 7",
+    "day": "Thursday",
+    "sessions": [
+      {
+        "title": "Bike session",
+        "discipline": "Bike",
+        "minutes": 60,
+        "effort": "Planned",
+        "notes": "Replace with exact master-plan detail from your sheet/PDF as needed.",
+        "completed": false,
+        "matchedActivityId": ""
+      }
+    ]
+  },
+  {
+    "date": "2026-06-05",
+    "week": "Week 7",
+    "day": "Friday",
+    "sessions": [
+      {
+        "title": "Rest Day",
+        "discipline": "Rest",
+        "minutes": 0,
+        "effort": "Rest",
+        "notes": "Recovery / taper as appropriate. Edit details as needed.",
+        "completed": false,
+        "matchedActivityId": ""
+      }
+    ]
+  },
+  {
+    "date": "2026-06-06",
+    "week": "Week 7",
+    "day": "Saturday",
+    "sessions": [
+      {
+        "title": "Bike session",
+        "discipline": "Bike",
+        "minutes": 120,
+        "effort": "Planned",
+        "notes": "Replace with exact master-plan detail from your sheet/PDF as needed.",
+        "completed": false,
+        "matchedActivityId": ""
+      }
+    ]
+  },
+  {
+    "date": "2026-06-07",
+    "week": "Week 7",
+    "day": "Sunday",
+    "sessions": [
+      {
+        "title": "Run session",
+        "discipline": "Run",
+        "minutes": 60,
+        "effort": "Planned",
+        "notes": "Replace with exact master-plan detail from your sheet/PDF as needed.",
+        "completed": false,
+        "matchedActivityId": ""
+      }
+    ]
+  },
+  {
+    "date": "2026-06-08",
+    "week": "Week 8",
+    "day": "Monday",
+    "sessions": [
+      {
+        "title": "Swim session",
+        "discipline": "Swim",
+        "minutes": 45,
+        "effort": "Planned",
+        "notes": "Replace with exact master-plan detail from your sheet/PDF as needed.",
+        "completed": false,
+        "matchedActivityId": ""
+      }
+    ]
+  },
+  {
+    "date": "2026-06-09",
+    "week": "Week 8",
+    "day": "Tuesday",
+    "sessions": [
+      {
+        "title": "Bike session",
+        "discipline": "Bike",
+        "minutes": 60,
+        "effort": "Planned",
+        "notes": "Replace with exact master-plan detail from your sheet/PDF as needed.",
+        "completed": false,
+        "matchedActivityId": ""
+      }
+    ]
+  },
+  {
+    "date": "2026-06-10",
+    "week": "Week 8",
+    "day": "Wednesday",
+    "sessions": [
+      {
+        "title": "Run session",
+        "discipline": "Run",
+        "minutes": 45,
+        "effort": "Planned",
+        "notes": "Replace with exact master-plan detail from your sheet/PDF as needed.",
+        "completed": false,
+        "matchedActivityId": ""
+      }
+    ]
+  },
+  {
+    "date": "2026-06-11",
+    "week": "Week 8",
+    "day": "Thursday",
+    "sessions": [
+      {
+        "title": "Bike session",
+        "discipline": "Bike",
+        "minutes": 60,
+        "effort": "Planned",
+        "notes": "Replace with exact master-plan detail from your sheet/PDF as needed.",
+        "completed": false,
+        "matchedActivityId": ""
+      }
+    ]
+  },
+  {
+    "date": "2026-06-12",
+    "week": "Week 8",
+    "day": "Friday",
+    "sessions": [
+      {
+        "title": "Rest Day",
+        "discipline": "Rest",
+        "minutes": 0,
+        "effort": "Rest",
+        "notes": "Recovery / taper as appropriate. Edit details as needed.",
+        "completed": false,
+        "matchedActivityId": ""
+      }
+    ]
+  },
+  {
+    "date": "2026-06-13",
+    "week": "Week 8",
+    "day": "Saturday",
+    "sessions": [
+      {
+        "title": "Bike session",
+        "discipline": "Bike",
+        "minutes": 120,
+        "effort": "Planned",
+        "notes": "Replace with exact master-plan detail from your sheet/PDF as needed.",
+        "completed": false,
+        "matchedActivityId": ""
+      }
+    ]
+  },
+  {
+    "date": "2026-06-14",
+    "week": "Week 8",
+    "day": "Sunday",
+    "sessions": [
+      {
+        "title": "Run session",
+        "discipline": "Run",
+        "minutes": 60,
+        "effort": "Planned",
+        "notes": "Replace with exact master-plan detail from your sheet/PDF as needed.",
+        "completed": false,
+        "matchedActivityId": ""
+      }
+    ]
+  },
+  {
+    "date": "2026-06-15",
+    "week": "Week 9",
+    "day": "Monday",
+    "sessions": [
+      {
+        "title": "Swim session",
+        "discipline": "Swim",
+        "minutes": 45,
+        "effort": "Planned",
+        "notes": "Replace with exact master-plan detail from your sheet/PDF as needed.",
+        "completed": false,
+        "matchedActivityId": ""
+      }
+    ]
+  },
+  {
+    "date": "2026-06-16",
+    "week": "Week 9",
+    "day": "Tuesday",
+    "sessions": [
+      {
+        "title": "Bike session",
+        "discipline": "Bike",
+        "minutes": 60,
+        "effort": "Planned",
+        "notes": "Replace with exact master-plan detail from your sheet/PDF as needed.",
+        "completed": false,
+        "matchedActivityId": ""
+      }
+    ]
+  },
+  {
+    "date": "2026-06-17",
+    "week": "Week 9",
+    "day": "Wednesday",
+    "sessions": [
+      {
+        "title": "Run session",
+        "discipline": "Run",
+        "minutes": 45,
+        "effort": "Planned",
+        "notes": "Replace with exact master-plan detail from your sheet/PDF as needed.",
+        "completed": false,
+        "matchedActivityId": ""
+      }
+    ]
+  },
+  {
+    "date": "2026-06-18",
+    "week": "Week 9",
+    "day": "Thursday",
+    "sessions": [
+      {
+        "title": "Bike session",
+        "discipline": "Bike",
+        "minutes": 60,
+        "effort": "Planned",
+        "notes": "Replace with exact master-plan detail from your sheet/PDF as needed.",
+        "completed": false,
+        "matchedActivityId": ""
+      }
+    ]
+  },
+  {
+    "date": "2026-06-19",
+    "week": "Week 9",
+    "day": "Friday",
+    "sessions": [
+      {
+        "title": "Rest Day",
+        "discipline": "Rest",
+        "minutes": 0,
+        "effort": "Rest",
+        "notes": "Recovery / taper as appropriate. Edit details as needed.",
+        "completed": false,
+        "matchedActivityId": ""
+      }
+    ]
+  },
+  {
+    "date": "2026-06-20",
+    "week": "Week 9",
+    "day": "Saturday",
+    "sessions": [
+      {
+        "title": "Bike session",
+        "discipline": "Bike",
+        "minutes": 120,
+        "effort": "Planned",
+        "notes": "Replace with exact master-plan detail from your sheet/PDF as needed.",
+        "completed": false,
+        "matchedActivityId": ""
+      }
+    ]
+  },
+  {
+    "date": "2026-06-21",
+    "week": "Week 9",
+    "day": "Sunday",
+    "sessions": [
+      {
+        "title": "Run session",
+        "discipline": "Run",
+        "minutes": 60,
+        "effort": "Planned",
+        "notes": "Replace with exact master-plan detail from your sheet/PDF as needed.",
+        "completed": false,
+        "matchedActivityId": ""
+      }
+    ]
+  },
+  {
+    "date": "2026-06-22",
+    "week": "Week 10",
+    "day": "Monday",
+    "sessions": [
+      {
+        "title": "Swim session",
+        "discipline": "Swim",
+        "minutes": 45,
+        "effort": "Planned",
+        "notes": "Replace with exact master-plan detail from your sheet/PDF as needed.",
+        "completed": false,
+        "matchedActivityId": ""
+      }
+    ]
+  },
+  {
+    "date": "2026-06-23",
+    "week": "Week 10",
+    "day": "Tuesday",
+    "sessions": [
+      {
+        "title": "Bike session",
+        "discipline": "Bike",
+        "minutes": 60,
+        "effort": "Planned",
+        "notes": "Replace with exact master-plan detail from your sheet/PDF as needed.",
+        "completed": false,
+        "matchedActivityId": ""
+      }
+    ]
+  },
+  {
+    "date": "2026-06-24",
+    "week": "Week 10",
+    "day": "Wednesday",
+    "sessions": [
+      {
+        "title": "Run session",
+        "discipline": "Run",
+        "minutes": 45,
+        "effort": "Planned",
+        "notes": "Replace with exact master-plan detail from your sheet/PDF as needed.",
+        "completed": false,
+        "matchedActivityId": ""
+      }
+    ]
+  },
+  {
+    "date": "2026-06-25",
+    "week": "Week 10",
+    "day": "Thursday",
+    "sessions": [
+      {
+        "title": "Bike session",
+        "discipline": "Bike",
+        "minutes": 60,
+        "effort": "Planned",
+        "notes": "Replace with exact master-plan detail from your sheet/PDF as needed.",
+        "completed": false,
+        "matchedActivityId": ""
+      }
+    ]
+  },
+  {
+    "date": "2026-06-26",
+    "week": "Week 10",
+    "day": "Friday",
+    "sessions": [
+      {
+        "title": "Rest Day",
+        "discipline": "Rest",
+        "minutes": 0,
+        "effort": "Rest",
+        "notes": "Recovery / taper as appropriate. Edit details as needed.",
+        "completed": false,
+        "matchedActivityId": ""
+      }
+    ]
+  },
+  {
+    "date": "2026-06-27",
+    "week": "Week 10",
+    "day": "Saturday",
+    "sessions": [
+      {
+        "title": "Bike session",
+        "discipline": "Bike",
+        "minutes": 120,
+        "effort": "Planned",
+        "notes": "Replace with exact master-plan detail from your sheet/PDF as needed.",
+        "completed": false,
+        "matchedActivityId": ""
+      }
+    ]
+  },
+  {
+    "date": "2026-06-28",
+    "week": "Week 10",
+    "day": "Sunday",
+    "sessions": [
+      {
+        "title": "Race Day",
+        "discipline": "Other",
+        "minutes": 0,
+        "effort": "Race",
+        "notes": "IRONMAN 70.3 Nice",
+        "completed": false,
+        "matchedActivityId": ""
+      }
+    ]
+  }
+]
