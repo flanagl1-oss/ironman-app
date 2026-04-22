@@ -1,7 +1,6 @@
 "use client";
 
-import { useMemo, useState, useSyncExternalStore } from "react";
-import type { SetStateAction } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 type Discipline = "Swim" | "Bike" | "Run" | "Strength" | "Rest" | "Other";
 
@@ -37,7 +36,6 @@ type ImportedActivity = {
 
 const STORAGE_KEY = "ironman703_training_app_v4";
 const ACTIVITIES_KEY = "ironman703_imported_activities_v2";
-const STORAGE_SYNC_EVENT = "ironman703-storage-sync";
 const EMPTY_ACTIVITIES: ImportedActivity[] = [];
 
 const seedPlan: PlannedDay[] = [
@@ -112,8 +110,6 @@ const seedPlan: PlannedDay[] = [
   { date: "2026-06-27", week: "Week 10", day: "Saturday", status: "Not Started", sessions: [{ title: "Rest Day", discipline: "Rest", minutes: 0, distance: 0, distanceUnit: "km", effort: "Rest", notes: "Rest day before race.", completed: false, matchedActivityId: "" }] },
   { date: "2026-06-28", week: "Week 10", day: "Sunday", status: "Not Started", sessions: [{ title: "Race Day", discipline: "Other", minutes: 0, distance: 0, distanceUnit: "km", effort: "Race", notes: "Good luck!", completed: false, matchedActivityId: "" }] }
 ];
-const SEED_PLAN_SNAPSHOT = JSON.stringify(seedPlan);
-const EMPTY_ACTIVITIES_SNAPSHOT = JSON.stringify(EMPTY_ACTIVITIES);
 
 function sameDate(a: string, b: string) {
   return a.slice(0, 10) === b.slice(0, 10);
@@ -223,11 +219,11 @@ function sanitizePlan(value: unknown): PlannedDay[] {
       const date = asString(day.date);
       const week = asString(day.week);
       const dayName = asString(day.day);
+      if (!date || !week || !dayName) return null;
+
       const sessions = Array.isArray(day.sessions)
         ? day.sessions.map(sanitizeSession).filter((session): session is PlannedSession => session !== null)
         : [];
-
-      if (!date || !week || !dayName) return null;
 
       const nextDay = {
         date,
@@ -256,11 +252,6 @@ function sanitizeActivities(value: unknown): ImportedActivity[] {
     const date = asString(activity.date);
     if (!date) return nextActivities;
 
-    const distanceKm =
-      typeof activity.distanceKm === "number" && Number.isFinite(activity.distanceKm)
-        ? activity.distanceKm
-        : undefined;
-
     const nextActivity: ImportedActivity = {
       id: asString(activity.id, `activity-${index}`),
       source: isSource(activity.source) ? activity.source : "Manual",
@@ -270,8 +261,8 @@ function sanitizeActivities(value: unknown): ImportedActivity[] {
       minutes: asNumber(activity.minutes),
     };
 
-    if (distanceKm !== undefined) {
-      nextActivity.distanceKm = distanceKm;
+    if (typeof activity.distanceKm === "number" && Number.isFinite(activity.distanceKm)) {
+      nextActivity.distanceKm = activity.distanceKm;
     }
 
     nextActivities.push(nextActivity);
@@ -279,64 +270,17 @@ function sanitizeActivities(value: unknown): ImportedActivity[] {
   }, []);
 }
 
-function readStorageSnapshot(key: string, fallback: string) {
+function readStoredJson<T>(key: string, fallback: T, sanitize: (value: unknown) => T) {
   if (typeof window === "undefined") return fallback;
-  return window.localStorage.getItem(key) ?? fallback;
-}
 
-function parseStorageSnapshot<T>(snapshot: string, fallback: T, sanitize: (value: unknown) => T) {
+  const raw = window.localStorage.getItem(key);
+  if (!raw) return fallback;
+
   try {
-    return sanitize(JSON.parse(snapshot));
+    return sanitize(JSON.parse(raw));
   } catch {
     return fallback;
   }
-}
-
-function subscribeToStorage(callback: () => void) {
-  if (typeof window === "undefined") return () => {};
-
-  const handle = (event: Event) => {
-    if (event instanceof StorageEvent && event.key && event.key !== STORAGE_KEY && event.key !== ACTIVITIES_KEY) {
-      return;
-    }
-
-    callback();
-  };
-
-  window.addEventListener("storage", handle);
-  window.addEventListener(STORAGE_SYNC_EVENT, handle);
-
-  return () => {
-    window.removeEventListener("storage", handle);
-    window.removeEventListener(STORAGE_SYNC_EVENT, handle);
-  };
-}
-
-function writeStorageSnapshot(key: string, snapshot: string) {
-  if (typeof window === "undefined") return;
-  window.localStorage.setItem(key, snapshot);
-  window.dispatchEvent(new Event(STORAGE_SYNC_EVENT));
-}
-
-function useStoredState<T>(key: string, fallback: T, fallbackSnapshot: string, sanitize: (value: unknown) => T) {
-  const snapshot = useSyncExternalStore(
-    subscribeToStorage,
-    () => readStorageSnapshot(key, fallbackSnapshot),
-    () => fallbackSnapshot
-  );
-  const value = useMemo(() => parseStorageSnapshot(snapshot, fallback, sanitize), [fallback, sanitize, snapshot]);
-
-  function setValue(nextValue: SetStateAction<T>) {
-    const currentValue = parseStorageSnapshot(readStorageSnapshot(key, fallbackSnapshot), fallback, sanitize);
-    const resolvedValue =
-      typeof nextValue === "function"
-        ? (nextValue as (previousValue: T) => T)(currentValue)
-        : nextValue;
-
-    writeStorageSnapshot(key, JSON.stringify(resolvedValue));
-  }
-
-  return [value, setValue] as const;
 }
 
 function createSession(): PlannedSession {
@@ -379,11 +323,19 @@ function MiniBar({ label, value, max, color }: { label: string; value: number; m
 }
 
 export default function Page() {
-  const [plan, setPlan] = useStoredState(STORAGE_KEY, seedPlan, SEED_PLAN_SNAPSHOT, sanitizePlan);
-  const [activities, setActivities] = useStoredState(ACTIVITIES_KEY, EMPTY_ACTIVITIES, EMPTY_ACTIVITIES_SNAPSHOT, sanitizeActivities);
+  const [plan, setPlan] = useState<PlannedDay[]>(() => readStoredJson(STORAGE_KEY, seedPlan, sanitizePlan));
+  const [activities, setActivities] = useState<ImportedActivity[]>(() => readStoredJson(ACTIVITIES_KEY, EMPTY_ACTIVITIES, sanitizeActivities));
   const [tab, setTab] = useState<"dashboard" | "calendar" | "day" | "master" | "sync">("dashboard");
   const [selectedDate, setSelectedDate] = useState(seedPlan[0].date);
   const [importText, setImportText] = useState("");
+
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(plan));
+  }, [plan]);
+
+  useEffect(() => {
+    localStorage.setItem(ACTIVITIES_KEY, JSON.stringify(activities));
+  }, [activities]);
 
   const weeks = useMemo(() => {
     const grouped = new Map<string, PlannedDay[]>();
@@ -434,6 +386,26 @@ export default function Page() {
         if (day.date !== dayDate) return day;
 
         const sessions = [...day.sessions, createSession()];
+        return {
+          ...day,
+          sessions,
+          status: buildStatus({ ...day, sessions }),
+        };
+      })
+    );
+  }
+
+  function deleteSession(dayDate: string, sessionIndex: number) {
+    const shouldDelete =
+      typeof window === "undefined" ? true : window.confirm("Delete this session?");
+
+    if (!shouldDelete) return;
+
+    setPlan((prev) =>
+      prev.map((day) => {
+        if (day.date !== dayDate) return day;
+
+        const sessions = day.sessions.filter((_, idx) => idx !== sessionIndex);
         return {
           ...day,
           sessions,
@@ -663,6 +635,13 @@ export default function Page() {
               </div>
             </div>
 
+            {selectedDay.sessions.length === 0 && (
+              <div style={styles.card}>
+                <div style={{ fontWeight: 600, marginBottom: 6 }}>No sessions for this day</div>
+                <div style={styles.small}>Add one whenever you want to schedule something here.</div>
+              </div>
+            )}
+
             {selectedDay.sessions.map((session, idx) => {
               const km = toKm(session);
               const discipline = normalizeDiscipline(session.discipline);
@@ -673,10 +652,15 @@ export default function Page() {
                       <div style={{ fontWeight: 700 }}>{session.title || "Untitled session"}</div>
                       <div style={styles.small}>{discipline} · {session.minutes} min · {km ? `${km.toFixed(2)} km` : session.distance ? `${session.distance} ${session.distanceUnit}` : "no distance"}</div>
                     </div>
-                    <label style={{ display: "flex", gap: 8, alignItems: "center" }}>
-                      <input type="checkbox" checked={session.completed} onChange={(e) => updateSession(selectedDay.date, idx, { completed: e.target.checked })} />
-                      Done
-                    </label>
+                    <div style={{ display: "flex", gap: 8, alignItems: "center", flexWrap: "wrap" }}>
+                      <label style={{ display: "flex", gap: 8, alignItems: "center" }}>
+                        <input type="checkbox" checked={session.completed} onChange={(e) => updateSession(selectedDay.date, idx, { completed: e.target.checked })} />
+                        Done
+                      </label>
+                      <button type="button" style={styles.button} onClick={() => deleteSession(selectedDay.date, idx)}>
+                        Delete
+                      </button>
+                    </div>
                   </div>
 
                   <div style={styles.grid2}>
