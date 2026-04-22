@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState, useSyncExternalStore } from "react";
+import type { SetStateAction } from "react";
 
 type Discipline = "Swim" | "Bike" | "Run" | "Strength" | "Rest" | "Other";
 
@@ -36,6 +37,8 @@ type ImportedActivity = {
 
 const STORAGE_KEY = "ironman703_training_app_v4";
 const ACTIVITIES_KEY = "ironman703_imported_activities_v2";
+const STORAGE_SYNC_EVENT = "ironman703-storage-sync";
+const EMPTY_ACTIVITIES: ImportedActivity[] = [];
 
 const seedPlan: PlannedDay[] = [
   { date: "2026-04-20", week: "Week 1", day: "Monday", status: "Not Started", sessions: [{ title: "Recovery Day", discipline: "Rest", minutes: 0, distance: 0, distanceUnit: "km", effort: "Rest", notes: "Take it easy; no training. Optional massage, nap, recovery habits.", completed: false, matchedActivityId: "" }] },
@@ -109,6 +112,8 @@ const seedPlan: PlannedDay[] = [
   { date: "2026-06-27", week: "Week 10", day: "Saturday", status: "Not Started", sessions: [{ title: "Rest Day", discipline: "Rest", minutes: 0, distance: 0, distanceUnit: "km", effort: "Rest", notes: "Rest day before race.", completed: false, matchedActivityId: "" }] },
   { date: "2026-06-28", week: "Week 10", day: "Sunday", status: "Not Started", sessions: [{ title: "Race Day", discipline: "Other", minutes: 0, distance: 0, distanceUnit: "km", effort: "Race", notes: "Good luck!", completed: false, matchedActivityId: "" }] }
 ];
+const SEED_PLAN_SNAPSHOT = JSON.stringify(seedPlan);
+const EMPTY_ACTIVITIES_SNAPSHOT = JSON.stringify(EMPTY_ACTIVITIES);
 
 function sameDate(a: string, b: string) {
   return a.slice(0, 10) === b.slice(0, 10);
@@ -168,6 +173,186 @@ function buildStatus(day: PlannedDay) {
   return "Partial";
 }
 
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null;
+}
+
+function asString(value: unknown, fallback = "") {
+  return typeof value === "string" ? value : fallback;
+}
+
+function asNumber(value: unknown, fallback = 0) {
+  return typeof value === "number" && Number.isFinite(value) ? value : fallback;
+}
+
+function asBoolean(value: unknown, fallback = false) {
+  return typeof value === "boolean" ? value : fallback;
+}
+
+function isDistanceUnit(value: unknown): value is PlannedSession["distanceUnit"] {
+  return value === "km" || value === "m" || value === "yd";
+}
+
+function isSource(value: unknown): value is ImportedActivity["source"] {
+  return value === "Strava" || value === "Polar" || value === "Manual";
+}
+
+function sanitizeSession(value: unknown): PlannedSession | null {
+  if (!isRecord(value)) return null;
+
+  return {
+    title: asString(value.title, "Untitled session"),
+    discipline: asString(value.discipline, "Other"),
+    minutes: asNumber(value.minutes),
+    distance: asNumber(value.distance),
+    distanceUnit: isDistanceUnit(value.distanceUnit) ? value.distanceUnit : "km",
+    effort: asString(value.effort),
+    notes: asString(value.notes),
+    completed: asBoolean(value.completed),
+    matchedActivityId: asString(value.matchedActivityId),
+  };
+}
+
+function sanitizePlan(value: unknown): PlannedDay[] {
+  if (!Array.isArray(value)) return seedPlan;
+
+  const days = value
+    .map((day) => {
+      if (!isRecord(day)) return null;
+
+      const date = asString(day.date);
+      const week = asString(day.week);
+      const dayName = asString(day.day);
+      const sessions = Array.isArray(day.sessions)
+        ? day.sessions.map(sanitizeSession).filter((session): session is PlannedSession => session !== null)
+        : [];
+
+      if (!date || !week || !dayName) return null;
+
+      const nextDay = {
+        date,
+        week,
+        day: dayName,
+        status: asString(day.status, "Not Started"),
+        sessions,
+      };
+
+      return {
+        ...nextDay,
+        status: buildStatus(nextDay),
+      };
+    })
+    .filter((day): day is PlannedDay => day !== null);
+
+  return days.length ? days : seedPlan;
+}
+
+function sanitizeActivities(value: unknown): ImportedActivity[] {
+  if (!Array.isArray(value)) return EMPTY_ACTIVITIES;
+
+  return value.reduce<ImportedActivity[]>((nextActivities, activity, index) => {
+    if (!isRecord(activity)) return nextActivities;
+
+    const date = asString(activity.date);
+    if (!date) return nextActivities;
+
+    const distanceKm =
+      typeof activity.distanceKm === "number" && Number.isFinite(activity.distanceKm)
+        ? activity.distanceKm
+        : undefined;
+
+    const nextActivity: ImportedActivity = {
+      id: asString(activity.id, `activity-${index}`),
+      source: isSource(activity.source) ? activity.source : "Manual",
+      name: asString(activity.name, "Imported activity"),
+      discipline: asString(activity.discipline, "Other"),
+      date,
+      minutes: asNumber(activity.minutes),
+    };
+
+    if (distanceKm !== undefined) {
+      nextActivity.distanceKm = distanceKm;
+    }
+
+    nextActivities.push(nextActivity);
+    return nextActivities;
+  }, []);
+}
+
+function readStorageSnapshot(key: string, fallback: string) {
+  if (typeof window === "undefined") return fallback;
+  return window.localStorage.getItem(key) ?? fallback;
+}
+
+function parseStorageSnapshot<T>(snapshot: string, fallback: T, sanitize: (value: unknown) => T) {
+  try {
+    return sanitize(JSON.parse(snapshot));
+  } catch {
+    return fallback;
+  }
+}
+
+function subscribeToStorage(callback: () => void) {
+  if (typeof window === "undefined") return () => {};
+
+  const handle = (event: Event) => {
+    if (event instanceof StorageEvent && event.key && event.key !== STORAGE_KEY && event.key !== ACTIVITIES_KEY) {
+      return;
+    }
+
+    callback();
+  };
+
+  window.addEventListener("storage", handle);
+  window.addEventListener(STORAGE_SYNC_EVENT, handle);
+
+  return () => {
+    window.removeEventListener("storage", handle);
+    window.removeEventListener(STORAGE_SYNC_EVENT, handle);
+  };
+}
+
+function writeStorageSnapshot(key: string, snapshot: string) {
+  if (typeof window === "undefined") return;
+  window.localStorage.setItem(key, snapshot);
+  window.dispatchEvent(new Event(STORAGE_SYNC_EVENT));
+}
+
+function useStoredState<T>(key: string, fallback: T, fallbackSnapshot: string, sanitize: (value: unknown) => T) {
+  const snapshot = useSyncExternalStore(
+    subscribeToStorage,
+    () => readStorageSnapshot(key, fallbackSnapshot),
+    () => fallbackSnapshot
+  );
+  const value = useMemo(() => parseStorageSnapshot(snapshot, fallback, sanitize), [fallback, sanitize, snapshot]);
+
+  function setValue(nextValue: SetStateAction<T>) {
+    const currentValue = parseStorageSnapshot(readStorageSnapshot(key, fallbackSnapshot), fallback, sanitize);
+    const resolvedValue =
+      typeof nextValue === "function"
+        ? (nextValue as (previousValue: T) => T)(currentValue)
+        : nextValue;
+
+    writeStorageSnapshot(key, JSON.stringify(resolvedValue));
+  }
+
+  return [value, setValue] as const;
+}
+
+function createSession(): PlannedSession {
+  return {
+    title: "New Session",
+    discipline: "Run",
+    minutes: 30,
+    distance: 0,
+    distanceUnit: "km",
+    effort: "",
+    notes: "",
+    completed: false,
+    matchedActivityId: "",
+  };
+}
+
 function getColor(discipline: string) {
   switch (normalizeDiscipline(discipline)) {
     case "Swim": return "#dbeafe";
@@ -194,26 +379,11 @@ function MiniBar({ label, value, max, color }: { label: string; value: number; m
 }
 
 export default function Page() {
-  const [plan, setPlan] = useState<PlannedDay[]>(seedPlan);
-  const [activities, setActivities] = useState<ImportedActivity[]>([]);
+  const [plan, setPlan] = useStoredState(STORAGE_KEY, seedPlan, SEED_PLAN_SNAPSHOT, sanitizePlan);
+  const [activities, setActivities] = useStoredState(ACTIVITIES_KEY, EMPTY_ACTIVITIES, EMPTY_ACTIVITIES_SNAPSHOT, sanitizeActivities);
   const [tab, setTab] = useState<"dashboard" | "calendar" | "day" | "master" | "sync">("dashboard");
   const [selectedDate, setSelectedDate] = useState(seedPlan[0].date);
   const [importText, setImportText] = useState("");
-
-  useEffect(() => {
-    const saved = localStorage.getItem(STORAGE_KEY);
-    const savedActivities = localStorage.getItem(ACTIVITIES_KEY);
-    if (saved) setPlan(JSON.parse(saved));
-    if (savedActivities) setActivities(JSON.parse(savedActivities));
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(plan));
-  }, [plan]);
-
-  useEffect(() => {
-    localStorage.setItem(ACTIVITIES_KEY, JSON.stringify(activities));
-  }, [activities]);
 
   const weeks = useMemo(() => {
     const grouped = new Map<string, PlannedDay[]>();
@@ -258,30 +428,20 @@ export default function Page() {
     }));
   }
 
-function addSession(dayDate: string) {
-  setPlan((prev) =>
-    prev.map((day) => {
-      if (day.date !== dayDate) return day;
+  function addSession(dayDate: string) {
+    setPlan((prev) =>
+      prev.map((day) => {
+        if (day.date !== dayDate) return day;
 
-      const newSession = {
-        title: "New Session",
-        discipline: "Run" as const,
-        minutes: 30,
-        distance: 0,
-        unit: "km" as const,
-        actualKm: 0,
-        completed: false,
-        notes: "",
-        effort: "",
-      };
-
-      return {
-        ...day,
-        sessions: [...day.sessions, newSession],
-      };
-    })
-  );
-}
+        const sessions = [...day.sessions, createSession()];
+        return {
+          ...day,
+          sessions,
+          status: buildStatus({ ...day, sessions }),
+        };
+      })
+    );
+  }
 
   function autoMatchActivities() {
     setPlan((prev) => prev.map((day) => {
@@ -304,7 +464,7 @@ function addSession(dayDate: string) {
 
   function parseImportedActivities() {
     try {
-      const parsed = JSON.parse(importText) as ImportedActivity[];
+      const parsed = sanitizeActivities(JSON.parse(importText));
       setActivities(parsed);
       setImportText("");
       alert(`Imported ${parsed.length} activities.`);
